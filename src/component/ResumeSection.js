@@ -314,7 +314,7 @@ console.log(result);
 
                                     </CreativeParent>
                                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                        <ResumeButton className='poppins-semibold' target='_blank' href='https://drive.google.com/file/d/1bu-_USJXWxG3SovlshOLgXzDTvXegp5w/view?usp=sharing'> View Resume </ResumeButton>
+                                        <ResumeButton className='poppins-semibold' target='_blank' href='https://docs.google.com/document/d/1P0OxUd-6MtyXn6jukHY14IroQxMwrRENTjj6tX40t5g/edit?usp=sharing'> View Resume </ResumeButton>
                                     </div>
                                 </div>
                             </CreativeSection>

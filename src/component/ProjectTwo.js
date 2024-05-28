@@ -270,7 +270,7 @@ function ProjectsTwo() {
 
           "domain" : "HealthCare Supplychain.",
 
-          "project_info" : "SupplyCopia is the fully integratedhealthcare platform that integrates data,
+          "project_info" : "SupplyCopia is the fully integrated healthcare platform that integrates data,
                             applications. Using a machine learning-based analytical
                             engine and a user-friendly interface. ",
 

@@ -9,6 +9,7 @@ import ProjectsTwo from './component/ProjectTwo';
 import ParticlesComponent from './component/Particle'
 import ResumeSection from './component/ResumeSection';
 import Fotter from './component/Fotter';
+import ScrollComp from './component/ScrollCompoentn';
 
 
 const marqueeOne = {
@@ -57,6 +58,7 @@ function App() {
       <Header></Header>
       <Baneer></Baneer>
       <Skillsection />
+      {/* <ScrollComp></ScrollComp> */}
       <Experience />
       <MarqueeSection dataSource={marqueeTwo} />
       <MarqueeSection dataSource={marqueeOne} />
@@ -64,6 +66,7 @@ function App() {
       <ProjectsTwo/>
       <ResumeSection></ResumeSection>
       <Fotter></Fotter>
+
     </div>
   );
 }
