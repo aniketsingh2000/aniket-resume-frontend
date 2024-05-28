@@ -161,7 +161,7 @@ function Fotter() {
                                     <CenterAlign>
                                         <IconFotter target="_blank" href="https://www.linkedin.com/in/aniketsingh2000/"> <GradientLinkedInIcon style={{ fontSize: '50px' }}></GradientLinkedInIcon> </IconFotter>
                                         <IconFotter target="_blank" href="https://github.com/aniketsingh2000"> <GradientGitHubIcon style={{ fontSize: '50px' }}></GradientGitHubIcon> </IconFotter>
-                                        <ResumeButton className='poppins-semibold' target='_blank' href='https://drive.google.com/file/d/1bu-_USJXWxG3SovlshOLgXzDTvXegp5w/view?usp=sharing'> View Resume </ResumeButton>
+                                        <ResumeButton className='poppins-semibold' target='_blank' href='https://docs.google.com/document/d/1P0OxUd-6MtyXn6jukHY14IroQxMwrRENTjj6tX40t5g/edit?usp=sharing'> View Resume </ResumeButton>
                                     </CenterAlign>
                                 </Grid>
                             </Grid>
