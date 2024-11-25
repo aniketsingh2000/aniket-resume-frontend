@@ -10,6 +10,7 @@ import ParticlesComponent from './component/Particle'
 import ResumeSection from './component/ResumeSection';
 import Fotter from './component/Fotter';
 import ScrollComp from './component/ScrollCompoentn';
+import TimeElapComp from './component/TimeComponent';
 
 
 const marqueeOne = {
@@ -55,8 +56,11 @@ function App() {
       {/* <div className='main-particle-box'>
         <ParticlesComponent id="particles"></ParticlesComponent>
       </div> */}
+      {/* <div className='background_one'> */}
       <Header></Header>
+      {/* <TimeElapComp></TimeElapComp> */}
       <Baneer></Baneer>
+      {/* </div> */}
       <Skillsection />
       {/* <ScrollComp></ScrollComp> */}
       <Experience />

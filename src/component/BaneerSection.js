@@ -1,14 +1,14 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { styled } from '@mui/system';
 import Container from '@mui/material/Container';
 import 'animate.css';
 import Reveal from './Reveal';
 import { ReactTyped } from "react-typed";
+import  TimeElapComp  from './TimeComponent'
 
-import { motion, useViewportScroll, useTransform } from "framer-motion";
 
-function Baneer() {
+function Baneer () {
 
   const MainHedaing = styled('div')({
     marginRight: '16px',
@@ -32,7 +32,8 @@ function Baneer() {
   });
 
   const MainBox = styled('div')({
-    marginTop: 'calc(35vh - 100px)',
+    paddingTop: 'calc(35vh - 50px)',
+    paddingBottom: '25vh',
   });
 
 
@@ -58,21 +59,49 @@ function Baneer() {
     },
   })
 
+  const CoolectDivOne = styled('div')({
+    'display': 'inline-block',
+    // 'background': '#fff',
+    'white-space': 'nowrap',
+    'max-width:' : '108%',
+    'border-radius':' 15px',
+    'box-shadow': '0 0 20px rgba(0, 0, 0, .1)',
+    'flex-direction': 'row',
+    'padding': '1rem 2rem',
+    'width': 'auto',
+  })
 
+  const EmojiDiv = styled('div')({
+      fontSize : '50px',
+      float : 'left',
+      marginRight : '20px'
+  })
+
+  const HelloDiv = styled('div')({
+    fontSize:'13px'
+  })
+
+  const NameDiv =  styled('div')({
+    // float : 'left',
+    fontSize : '40px',
+    marginLeft : '70px'
+    
+  })
   return (
 
     <div>
+      <div className='background_one'>
       <Container maxWidth="xl" >
         <MainBox>
           <MainHedaing className='poppins-semibold'>
 
             <Reveal>
-              <div> I'm  Aniket Singh  </div>
+              <CoolectDivOne> <EmojiDiv className=''> 👋 </EmojiDiv>  <HelloDiv>  Hello, I am </HelloDiv> <NameDiv> Aniket </NameDiv>  </CoolectDivOne>
             </Reveal>
             <Reveal>
               <div> A Creative
                 <TypedSection>
-                  [
+                  {'{'}
                   <ReactTyped
                     strings={[
                       "Software Developer ",
@@ -86,16 +115,17 @@ function Baneer() {
                   >
                     <MainInput className='black-placeholder' type="text" />
                   </ReactTyped>
-                  ]
+                  {'}'}
                 </TypedSection>
               </div>
             </Reveal>
             <Reveal>
-              <div className='small-in-size poppins-light'> Building tomorrow's tech with skill's and passion. </div>
+              <div className='small-in-size poppins-light'> Building tomorrow's tech with skill's and passion  </div>
             </Reveal>
             {/* <ReactTyped strings={[` 
               <div> I'm  Aniket Singh  </div> <div> A Creative Software Developer </div> <div class='small-in-size'> Building tomorrow's tech with skill and passion.</div>`]} typeSpeed={40} /> */}
           </MainHedaing>
+          <TimeElapComp></TimeElapComp>
         </MainBox>
 
 
@@ -116,6 +146,7 @@ function Baneer() {
       </motion.div>
     </div> */}
       </Container>
+      </div>
     </div>
   )
 }

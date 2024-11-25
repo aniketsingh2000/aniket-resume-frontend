@@ -209,7 +209,6 @@ function ResumeSection() {
         borderRadius: '40px',
         color: '#fff',
         marginTop: '50px',
-        border: '1px solid,',
         height: '30px',
         display: 'flex',
         alignItems: 'center',
