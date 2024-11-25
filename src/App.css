@@ -28,6 +28,14 @@
   color: #61dafb;
 }
 
+.background_one{
+  background: url('./assets/images/background/bgmi-1.png');
+  background-position: 50%;
+  background-repeat: repeat;
+  background-size: cover;
+  position: relative;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

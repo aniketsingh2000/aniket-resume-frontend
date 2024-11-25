@@ -52,7 +52,7 @@ const Skillsection = memo(function Skillsection() {
     }, [expandElement]);
 
     const MainHeadBox = styled('div')({
-        margin: '18vh auto 0px auto',
+        margin: '10vh auto 0px auto',
         padding: '70px 100px 100px ',
         // background: '#f2f6ff',
         background: 'linear-gradient(225deg, rgb(242 179 255 / 30%) 0%, rgb(253 102 130 / 40%) 49%, rgb(255 223 149 / 30%) 100%)',

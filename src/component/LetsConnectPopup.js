@@ -8,10 +8,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import style from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { GradientGitHubIcon, GradientLinkedInIcon } from './../icons/SocialIcon';
@@ -48,7 +44,6 @@ const ResumeButton = styled('a')({
     color: '#fff',
     // marginTop: '50px',
     display: 'inline-block',
-    border: '1px solid,',
     display: 'flex',
     alignItems: 'center',
     height : '30px',

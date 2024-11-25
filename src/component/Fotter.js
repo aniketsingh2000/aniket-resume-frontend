@@ -79,7 +79,6 @@ const ResumeButton = styled('a')({
     color: '#fff',
     // marginTop: '50px',
     display: 'inline-block',
-    border: '1px solid,',
     display: 'flex',
     alignItems: 'center',
     height : '30px',

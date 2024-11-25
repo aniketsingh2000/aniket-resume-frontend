@@ -9,6 +9,9 @@ function Experience() {
     const MainHeadBox = styled('div')({
         marginTop: '18vh',
         marginBottom: '18vh',
+        '@media (max-width: 600px)': {
+            marginTop: '40vh',
+       },
     });
 
     const ExperienceBox = styled('div')({
