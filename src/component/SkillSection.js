@@ -1,6 +1,7 @@
 import { styled } from '@mui/system';
 import Container from '@mui/material/Container';
 import Reveal from './Reveal';
+import { memo } from 'react';
 import NodeJsImg from '../assets/images/nodejs.svg.png';
 import Javascript from '../assets/images/JavaScript.png';
 import Angular from '../assets/images/angular.svg';
@@ -22,223 +23,330 @@ import Jira from '../assets/images/jira.png';
 import Postman from '../assets/images/postman.webp';
 import Linux from '../assets/images/linux.png';
 import VsCode from '../assets/images/vs-code.webp';
-import { memo, useState, useEffect, useRef } from 'react';
+
+
+// ═══════════════════════════════════════════
+// STYLED COMPONENTS
+// ═══════════════════════════════════════════
+
+const SectionWrapper = styled('div')({
+    padding: '100px 0 80px',
+    margin: '10vh auto 0px auto',
+    fontFamily: '"Poppins", sans-serif',
+    '@media (max-width: 600px)': {
+        padding: '60px 0 50px',
+        margin: '5vh auto 0px auto',
+    },
+});
+
+const GradientBox = styled('div')({
+    background: 'linear-gradient(225deg, rgba(242, 179, 255, 0.3) 0%, rgba(253, 102, 130, 0.4) 49%, rgba(255, 223, 149, 0.3) 100%)',
+    borderRadius: '24px',
+    padding: '60px 40px',
+    '@media (max-width: 600px)': {
+        borderRadius: '16px',
+        padding: '40px 16px',
+    },
+});
+
+const TitlePill = styled('div')({
+    margin: '0 auto 0',
+    padding: '16px 50px',
+    border: '1.5px solid #1472ff',
+    borderRadius: '8px',
+    fontSize: '18px',
+    // letterSpacing: '4px',
+    textTransform: 'uppercase',
+    color: '#1f2937',
+    textAlign: 'center',
+    width: 'fit-content',
+    '@media (max-width: 600px)': {
+        fontSize: '14px',
+        padding: '12px 30px',
+        // letterSpacing: '3px',
+    },
+});
+
+// Tree structure
+const TreeContainer = styled('div')({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+});
+
+const VerticalLine = styled('div')(({ height }) => ({
+    width: '1.5px',
+    height: height || '50px',
+    background: '#1472ff',
+    '@media (max-width: 600px)': {
+        height: height ? `calc(${height} * 0.6)` : '30px',
+    },
+}));
+
+// Top row: Frontend + Backend
+const TopBranch = styled('div')({
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    position: 'relative',
+    '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '25%',
+        right: '25%',
+        height: '1.5px',
+        background: '#1472ff',
+    },
+    '@media (max-width: 900px)': {
+        flexDirection: 'column',
+        alignItems: 'center',
+        '&::before': {
+            display: 'none',
+        },
+    },
+});
+
+// Bottom row: Database, Tools, AI
+const BottomBranch = styled('div')({
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    position: 'relative',
+    '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '16%',
+        right: '16%',
+        height: '1.5px',
+        background: '#1472ff',
+    },
+    '@media (max-width: 900px)': {
+        flexDirection: 'column',
+        alignItems: 'center',
+        '&::before': {
+            display: 'none',
+        },
+    },
+});
+
+const BranchBox = styled('div')(({ maxW }) => ({
+    border: '1.5px solid #1472ff',
+    borderRadius: '10px',
+    padding: '28px',
+    margin: '40px 16px 0',
+    position: 'relative',
+    flex: 1,
+    maxWidth: maxW || '460px',
+    background: 'rgba(255,255,255,0.5)',
+    backdropFilter: 'blur(4px)',
+    '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '50%',
+        width: '1.5px',
+        height: '40px',
+        background: '#1472ff',
+        transform: 'translateX(-50%) translateY(-100%)',
+    },
+    '@media (max-width: 900px)': {
+        margin: '40px 0 0',
+        maxWidth: '100%',
+        '&::before': {
+            height: '40px',
+        },
+    },
+    '@media (max-width: 600px)': {
+        padding: '20px 16px',
+    },
+}));
+
+const BoxLabel = styled('div')(({ color }) => ({
+    fontSize: '11px',
+    textTransform: 'uppercase',
+    // letterSpacing: '2.5px',
+    color: color || '#0d9488',
+    marginBottom: '18px',
+    textAlign: 'center',
+    fontWeight: 600,
+    '@media (max-width: 600px)': {
+        fontSize: '10px',
+        marginBottom: '14px',
+    },
+}));
+
+const SkillPillsWrap = styled('div')({
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '10px',
+    justifyContent: 'center',
+    '@media (max-width: 600px)': {
+        gap: '8px',
+    },
+});
+
+const SkillPill = styled('span')(({ color }) => ({
+    padding: '8px 18px',
+    borderRadius: '20px',
+    border: `1.5px solid ${color || '#2a5c4a'}`,
+    color: color || '#4aeabc',
+    fontSize: '12px',
+    // letterSpacing: '0.8px',
+    textTransform: 'uppercase',
+    whiteSpace: 'nowrap',
+    transition: 'all 0.3s ease',
+    cursor: 'default',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '7px',
+    '&:hover': {
+        background: `${color || '#4aeabc'}18`,
+        transform: 'translateY(-2px)',
+        boxShadow: `0 4px 20px ${color || '#4aeabc'}25`,
+    },
+    '@media (max-width: 600px)': {
+        padding: '6px 12px',
+        fontSize: '10px',
+        gap: '5px',
+    },
+}));
+
+const PillIcon = styled('img')({
+    width: '16px',
+    height: '16px',
+    objectFit: 'contain',
+    borderRadius: '3px',
+    '@media (max-width: 600px)': {
+        width: '13px',
+        height: '13px',
+    },
+});
+
+
+// ═══════════════════════════════════════════
+// COMPONENT
+// ═══════════════════════════════════════════
 
 const Skillsection = memo(function Skillsection() {
 
-    const mainElement = useRef(null);
-    const [expandElement, setExpandElement] = useState(1);
-    const [scrollStart, SetScrollStart] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (!scrollStart) {
-                SetScrollStart(true);
-            }
-            if (mainElement.current) {
-                const rect = mainElement.current.getBoundingClientRect();
-                if ((window.scrollY - rect.top) < 0 && expandElement < 1.2) {
-                    const val = 1 + (((window.scrollY) / 3) * 0.001)
-                    setExpandElement(val > 1.2 ? 1.2 : val);
-                }
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [expandElement]);
-
-    const MainHeadBox = styled('div')({
-        margin: '10vh auto 0px auto',
-        padding: '70px 100px 100px ',
-        // background: '#f2f6ff',
-        background: 'linear-gradient(225deg, rgb(242 179 255 / 30%) 0%, rgb(253 102 130 / 40%) 49%, rgb(255 223 149 / 30%) 100%)',
-        // borderRadius: '30px',
-        // transform: `scale(${expandElement})`,
-        transition: 'transform 0.5s ease-in-out',
-        willChange: 'transform',
-        aspectRatio: (16 / 9),
-        '@media (max-width: 1024px)': {
-            padding: '45px 45px 70px 45px ',
-        },
-
-        '@media (max-width: 600px)': {
-            padding: '45px 20px 70px 20px ',
-        }
-    });
-
-    const SkillBox = styled('div')({
-        // float: 'right',
-        fontSize: '6rem',
-        // fontWeight: 'bold',
-        color: '#222',
-        // textShadow: '0 0px 100px rgb(63 63 63 / 40%)'
-
-        '@media (max-width: 600px)': {
-            fontSize: '3rem',
-            textAlign: 'center'
-        },
-    });
-
-    const SmallText = styled('div')({
-        // float: "right",
-        display: "inline-block",
-        color: "#222",
-        fontSize: "22px",
-        borderBottom: "1px solid #222",
-        paddingBottom: '5px',
-        marginTop: '-30px',
-
-        '@media (max-width: 600px)': {
-            textAlign: 'center',
-            margin: '0 auto',
-            width: '100%'
-        },
-    })
-
-    const SingleSkillImag = styled('img')({
-        width: '25px',
-        // 'filter': 'grayscale(1)',
-        borderRadius: '5px',
-        'transition': 'all 300ms linear',
-    });
-
-
-
-    const SingleSkillSpan = styled('span')({
-        background: '#fff',
-        padding: '10px 25px',
-        'borderRadius': '30px',
-        'display': 'flex',
-        'alignItems': 'center',
-        'transition': 'all 300ms linear',
-        'position': 'relative',
-        // 'boxShadow': '0 0px 100px rgb(114 114 114 / 40%)',
-
-        '&:hover': {
-            '& img': {
-                // filter: 'grayscale(0)',
-                'transition': 'all 300ms linear',
-                'scale': '1.2'
-
-            },
-        },
-
-        '@media (max-width: 600px)': {
-   
-            display: 'flex',
-            marginBottom : '30px'
-        },
-
-    })
-
-    const SkillDefineSection = styled('div')({
-        'display': 'flex',
-        'marginTop': '100px',
-        flexWrap: 'wrap',
-        rowGap: '50px',
-        columnGap: '2%',
-
-        '@media (max-width: 1024px)': {
-            columnGap: '1.5%',
-        },
-        
-        '@media (max-width: 600px)': {
-            'display': 'block',
-            columnGap: '0%',
-        },
-    })
-
-
-    const HoverText = styled('span')({
-        fontSize: '16px',
-        // position: 'absolute',
-        // background: '#000',
-        // color: '#fff',
-        padding: '8px 12px',
-        borderRadius: '5px',
-        whiteSpace: 'nowrap',
-        display: 'flex',
-        alignItems: 'center',
-        margin: '0 auto',
-        // opacity: 0,
-        // zIndex: 1,
-        // left: '80px',
-        // bottom: '-15px',
-        transition: '.4s ease all',
-
-        '@media (max-width: 600px)': {
-            display: 'inline-block',
-            textAlign: 'center',
-            margin: '0 auto',
-            width: '70%',
-        }
-    })
-
-
-    const skillArr = [
-        { img: Javascript, name: 'Javascript' },
-        { img: Angular, name: 'Angular' },
-        { img: Ionic, name: 'Ionic Framwork' },
-        { img: TypeScript, name: 'Typescript' },
-        { img: ReactJs, name: 'React JS' },
-        { img: Reducx, name: 'Redux' },
-        { img: NodeJsImg, name: 'Node JS' },
-        { img: ExpressJS, name: 'Express JS' },
-        { img: MongoDb, name: 'Mongo DB' },
-        { img: AmazoneRedshift, name: 'Amazone Redshift' },
-        { img: Html, name: 'HTML 5' },
-        { img: CSS, name: 'CSS 3 - responsive' },
-        { img: SCSS, name: 'SCSS ' },
-        { img: MaterialUI, name: 'Material UI' },
-        { img: Bootstrap, name: 'Bootstrap' },
-        { img: Jquery, name: 'Jquery' },
-        { img: Git, name: 'Git Version Control' },
-        { img: Jira, name: 'Jira Software' },
-        { img: Postman, name: 'Postman API Testing' },
-        { img: Linux, name: 'Linux' },
-        { img: VsCode, name: 'VS code' }
-    ]
-
-
-    const skillBoxContent = <SkillBox className='poppins-regular'>My Skills</SkillBox>;
-    const skillSubContent = <SmallText>  as a Creative Developer </SmallText>;
+    const green = '#0d9488';
+    const blue = '#6366f1';
+    const purple = '#0284c7';
+    const orange = '#d97706';
+    const pink = '#c026d3';
 
     return (
-        <div>
+        <SectionWrapper>
             <Container maxWidth="xl">
-                <MainHeadBox ref={mainElement} expandElement={expandElement} style={{ transform: `scale(${expandElement})` }}>
+                <GradientBox>
+                <TreeContainer>
+                    <Reveal>
+                        <TitlePill className='poppins-semibold'>My Skills</TitlePill>
+                    </Reveal>
 
-                    {!scrollStart ? <Reveal>{skillBoxContent}</Reveal> : skillBoxContent}
+                    <VerticalLine height="50px" />
 
-                    <div className='clearBoth'></div>
+                    {/* ═══ TOP ROW: Frontend + Backend ═══ */}
+                    <TopBranch>
+                        <Reveal>
+                            <BranchBox>
+                                <BoxLabel color={green} className='poppins-semibold'>Frontend & UI</BoxLabel>
+                                <SkillPillsWrap>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={Javascript} alt="" />JavaScript</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={TypeScript} alt="" />TypeScript</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={ReactJs} alt="" />React</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={Angular} alt="" />Angular</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'>Next.js</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={Reducx} alt="" />Redux</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'>RxJS</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={Ionic} alt="" />Ionic</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={Html} alt="" />HTML5</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={CSS} alt="" />CSS3</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={SCSS} alt="" />SCSS</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={MaterialUI} alt="" />Material UI</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={Bootstrap} alt="" />Bootstrap</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'><PillIcon src={Jquery} alt="" />jQuery</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'>Tailwind CSS</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'>React Native</SkillPill>
+                                    <SkillPill color={green} className='poppins-medium'>Framer Motion</SkillPill>
+                                </SkillPillsWrap>
+                            </BranchBox>
+                        </Reveal>
 
+                        <Reveal>
+                            <BranchBox>
+                                <BoxLabel color={blue} className='poppins-semibold'>Backend & APIs</BoxLabel>
+                                <SkillPillsWrap>
+                                    <SkillPill color={blue} className='poppins-medium'><PillIcon src={NodeJsImg} alt="" />Node.js</SkillPill>
+                                    <SkillPill color={blue} className='poppins-medium'><PillIcon src={ExpressJS} alt="" />Express.js</SkillPill>
+                                    <SkillPill color={blue} className='poppins-medium'>REST APIs</SkillPill>
+                                    <SkillPill color={blue} className='poppins-medium'>GraphQL</SkillPill>
+                                    <SkillPill color={blue} className='poppins-medium'>WebSockets</SkillPill>
+                                    <SkillPill color={blue} className='poppins-medium'>Microservices</SkillPill>
+                                </SkillPillsWrap>
+                            </BranchBox>
+                        </Reveal>
+                    </TopBranch>
 
-                    {!scrollStart ? <Reveal>{skillSubContent}</Reveal> : skillSubContent}
+                    <VerticalLine height="60px" />
 
+                    {/* ═══ BOTTOM ROW: Database, Tools, AI ═══ */}
+                    <BottomBranch>
+                        <Reveal>
+                            <BranchBox maxW="350px">
+                                <BoxLabel color={orange} className='poppins-semibold'>Database & Cloud</BoxLabel>
+                                <SkillPillsWrap>
+                                    <SkillPill color={orange} className='poppins-medium'><PillIcon src={MongoDb} alt="" />MongoDB</SkillPill>
+                                    <SkillPill color={orange} className='poppins-medium'>PostgreSQL</SkillPill>
+                                    <SkillPill color={orange} className='poppins-medium'>Redis</SkillPill>
+                                    <SkillPill color={orange} className='poppins-medium'><PillIcon src={AmazoneRedshift} alt="" />Amazon Redshift</SkillPill>
+                                    <SkillPill color={orange} className='poppins-medium'>ElasticSearch</SkillPill>
+                                    <SkillPill color={orange} className='poppins-medium'>AWS</SkillPill>
+                                    <SkillPill color={orange} className='poppins-medium'>CloudFront</SkillPill>
+                                    <SkillPill color={orange} className='poppins-medium'>Docker</SkillPill>
+                                    <SkillPill color={orange} className='poppins-medium'>CI/CD</SkillPill>
+                                </SkillPillsWrap>
+                            </BranchBox>
+                        </Reveal>
 
-                    <div className='clearBoth'></div>
+                        <Reveal>
+                            <BranchBox maxW="350px">
+                                <BoxLabel color={purple} className='poppins-semibold'>Tools & Workflow</BoxLabel>
+                                <SkillPillsWrap>
+                                    <SkillPill color={purple} className='poppins-medium'><PillIcon src={Git} alt="" />Git</SkillPill>
+                                    <SkillPill color={purple} className='poppins-medium'><PillIcon src={Git} alt="" />GitHub</SkillPill>
+                                    <SkillPill color={purple} className='poppins-medium'><PillIcon src={Jira} alt="" />Jira</SkillPill>
+                                    <SkillPill color={purple} className='poppins-medium'><PillIcon src={Postman} alt="" />Postman</SkillPill>
+                                    <SkillPill color={purple} className='poppins-medium'><PillIcon src={Linux} alt="" />Linux</SkillPill>
+                                    <SkillPill color={purple} className='poppins-medium'><PillIcon src={VsCode} alt="" />VS Code</SkillPill>
+                                    <SkillPill color={purple} className='poppins-medium'>Figma</SkillPill>
+                                    <SkillPill color={purple} className='poppins-medium'>Webpack</SkillPill>
+                                    <SkillPill color={purple} className='poppins-medium'>Agile/Scrum</SkillPill>
+                                </SkillPillsWrap>
+                            </BranchBox>
+                        </Reveal>
 
-                    <SkillDefineSection>
-                        {
-                            skillArr.map((item, index) => (
-                                <Reveal>
-                                    <SingleSkillSpan key={index} >
-                                        <SingleSkillImag src={item.img} />
-                                        <HoverText className={`hover-text ${((index + 1) % 6) === 0 ? 'new-back-class' : ''}`}> {item.name} </HoverText>
-                                    </SingleSkillSpan>
-                                </Reveal>
-                            ))
-                        }
-                    </SkillDefineSection>
-                </MainHeadBox>
+                        <Reveal>
+                            <BranchBox maxW="350px">
+                                <BoxLabel color={pink} className='poppins-semibold'>AI-Assisted Dev</BoxLabel>
+                                <SkillPillsWrap>
+                                    <SkillPill color={pink} className='poppins-medium'>GitHub Copilot</SkillPill>
+                                    <SkillPill color={pink} className='poppins-medium'>Claude Code</SkillPill>
+                                    <SkillPill color={pink} className='poppins-medium'>ChatGPT</SkillPill>
+                                    <SkillPill color={pink} className='poppins-medium'>Gemini AI</SkillPill>
+                                    <SkillPill color={pink} className='poppins-medium'>MCP</SkillPill>
+                                    <SkillPill color={pink} className='poppins-medium'>Prompt Engineering</SkillPill>
+                                </SkillPillsWrap>
+                            </BranchBox>
+                        </Reveal>
+                    </BottomBranch>
+                </TreeContainer>
+                </GradientBox>
             </Container>
-        </div>
-    )
-}
-)
+        </SectionWrapper>
+    );
+});
 
 export default Skillsection;

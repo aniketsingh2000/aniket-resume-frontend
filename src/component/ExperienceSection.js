@@ -10,7 +10,7 @@ function Experience() {
         marginTop: '18vh',
         marginBottom: '18vh',
         '@media (max-width: 600px)': {
-            marginTop: '40vh',
+            marginTop: '10vh',
        },
     });
 
@@ -137,9 +137,10 @@ function Experience() {
     })
 
     const expeirenceArr = [
-        { 'desgination': 'Senior Software Developer', 'company': 'Algoscale Technologies Private Limited', 'fromTo': 'Febraury 2022 - Present', 'location': 'Noida - UP' },
-        { 'desgination': 'Software Developer', 'company': 'Factech Automation Solutions Private Limited', 'fromTo': 'Febraury 2020 - Febraury 2022', 'location': 'Noida - UP' },
-        { 'desgination': 'Frontend Developer - Internship', 'company': 'DeviceDisk', 'fromTo': 'August 2019 - December 2019', 'location': 'Delhi' },
+        { 'desgination': 'Software Developer', 'company': 'SupplyCopia Software Services', 'fromTo': 'May 2025 - Present', 'location': 'Noida - UP' },
+        { 'desgination': 'Software Developer', 'company': 'Algoscale Technologies Private Limited', 'fromTo': 'Feb 2022 - Apr-2025', 'location': 'Noida - UP' },
+        { 'desgination': 'Software Engineer', 'company': 'Factech Automation Solutions Private Limited', 'fromTo': 'Feb 2020 - Feb 2022', 'location': 'Noida - UP' },
+        { 'desgination': 'Frontend Developer - Internship', 'company': 'DeviceDisk', 'fromTo': 'Aug 2019 - Dec 2019', 'location': 'Delhi' },
     ]
 
     return (
