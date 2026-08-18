@@ -289,16 +289,28 @@ console.log(result);
                                         <MyProfileBox style={{ transform: `translate3d(0px, ${100 / (expandElementLeft / 2)}px, 0px)` }}> <MyProfile src={MyProfileImg} />  </MyProfileBox>
                                         <CreativeLeftSection className='cretive-left' style={{ transform: `rotate(-${expandElementLeft}deg)` }}>
                                             <HeadingRow className='poppins-semibold'> Aniket Singh </HeadingRow>
-                                            <SubHeadingRow className='poppins-semibold'> Senior Software Developer </SubHeadingRow>
-                                            <Para className='poppins-regular'> I am Aniket Singh, a senior software developer with over 4.6 years of professional experience. Successfully building products, websites, web apps, hybrid mobile apps. I pay attention to small details, enjoy technical problems, and work well in teams. I like learning new technologies and always aim to improve my skills. </Para>
+                                            <SubHeadingRow className='poppins-semibold'> Senior Software Engineer </SubHeadingRow>
+                                            <Para className='poppins-regular'> Senior Software Engineer with 6+ years of experience designing and building scalable SaaS products, enterprise web platforms, and hybrid mobile applications....  </Para>
                                             <Divider></Divider>
-                                            <Para> aniketsinghinform@gmail.com </Para>
-                                            <Para> 7011283041 </Para>
+                                            {/* <Para> aniketsinghinform@gmail.com </Para> */}
+                                            {/* <Para> 7011283041 </Para> */}
+                                            <Para className='poppins-regular' style={{ fontSize: '13px', color: '#666', marginTop: '15px' }}><strong>Domains:</strong> Healthcare | E-commerce | Travel ...</Para>
                                             <Para>  </Para>
                                             <SubHeadingRow className='poppins-semibold topMargin'> Work Experience </SubHeadingRow>
                                             <Para className='poppins-regular'>
-                                                Senior Software Developer | Algoscale Technologies Private Limited <br /> <br />
-                                                Software Developer | Factech Automation Solutions Private Limited
+                                                <strong>Software Developer</strong> <br />
+                                                SupplyCopia Software Services <br />
+                                                May 2025 - Present | Noida - UP
+                                            </Para>
+                                            <Para className='poppins-regular'>
+                                                <strong>Software Developer</strong> <br />
+                                                Algoscale Technologies Private Limited <br />
+                                                Feb 2022 - Apr 2025 | Noida - UP
+                                            </Para>
+                                            <Para className='poppins-regular'>
+                                                <strong>Software Engineer</strong> <br />
+                                                Factech Automation Solutions Private Limited <br />
+                                                Feb 2020 - Feb 2022 | Noida - UP
                                             </Para>
                                             <Divider></Divider>
                                         </CreativeLeftSection>
